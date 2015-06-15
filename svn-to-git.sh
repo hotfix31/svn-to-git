@@ -24,7 +24,7 @@ Usage: ${0} git-name remote-svn-path remote-git-path
 
 eg: ${0} migrate-svn-to-git-with-history https://github.com/rentabiliweb/migrate-svn-to-git-with-history git@github.com:rentabiliweb/migrate-svn-to-git-with-history
 EOF
-exit 1
+exit 0
 fi
 
 NAME=${1}
