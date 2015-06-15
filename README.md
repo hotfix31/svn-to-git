@@ -13,7 +13,8 @@
 
 ## Overview
 
-This is a simple script to migrate from svn repository to git repository with history.
+This is a  simple script to migrate  from svn repository to  git repository with
+history.
 
 ## Description
 
