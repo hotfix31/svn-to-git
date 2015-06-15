@@ -17,7 +17,7 @@ This is a simple script to migrate from svn repository to git repository with hi
 
 ## Description
 
-The script follow all the steps of : http://rweb.li/svngit
+The script follow some steps of : http://stackoverflow.com/a/3972103/292694
 
 ## Requirements
 

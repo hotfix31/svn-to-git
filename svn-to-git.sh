@@ -14,7 +14,7 @@
 # OTHER  TORTIOUS ACTION,  ARISING  OUT OF  OR  IN CONNECTION  WITH  THE USE  OR
 # PERFORMANCE OF THIS SOFTWARE.
 
-# http://www.redmine.org/projects/redmine/wiki/RedmineUpgrade
+# http://stackoverflow.com/a/3972103/292694
 
 if [ ${#} -lt 3 ]
 then
