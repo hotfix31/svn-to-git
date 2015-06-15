@@ -1,5 +1,7 @@
 # migrate-svn-to-git-with-history
 
+[![Build Status](https://travis-ci.org/rentabiliweb/migrate-svn-to-git-with-history.svg?branch=master)](https://travis-ci.org/rentabiliweb/migrate-svn-to-git-with-history)
+
 #### Table of Contents
 
 1. [Overview](#overview)
