@@ -27,6 +27,20 @@ EOF
 exit 0
 fi
 
+which svn > /dev/null
+if [ $? -ne 0 ]
+then
+    echo -e "\\033[31mPlease install svn (see README.md)\\033[39m"
+    exit 1
+fi
+
+which git > /dev/null
+if [ $? -ne 0 ]
+then
+    echo -e "\\033[31mPlease install git (see README.md)\\033[39m"
+    exit 1
+fi
+
 NAME=${1}
 SRC=${2}
 DST=${3}
