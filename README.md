@@ -21,9 +21,9 @@ The script follow all the steps of : http://rweb.li/svngit
 
 On Debian (>= wheezy) & Ubuntu (>= trusy), you need the following packages :
 
-```bash
-$> sudo apt-get install subversion git-core git-svn
-```
+ ```bash
+ $> sudo apt-get install subversion git-core git-svn
+ ```
 
 ## Setup
 
