@@ -87,6 +87,7 @@ fi
 
 # Set git remote
 echo -ne "\\033[39m-- git remote"
+cd ${NAME}-git
 git remote set-url origin ${DST}
 if [ $? -ne 0 ]
 then
