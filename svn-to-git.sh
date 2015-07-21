@@ -20,7 +20,7 @@ if [ ${#} -lt 3 ]
 then
     cat <<EOF
 ${0}: missing repositories
-Usage: ${0} git-name remote-svn-path remote-git-path
+Usage: ${0} git-name remote-svn-path remote-git-path [author-mapping-file]
 
 eg: ${0} migrate-svn-to-git-with-history https://github.com/rentabiliweb/migrate-svn-to-git-with-history git@github.com:rentabiliweb/migrate-svn-to-git-with-history
 EOF
@@ -41,9 +41,21 @@ then
     exit 1
 fi
 
+ROOT=$(pwd)
 NAME=${1}
 SRC=${2}
 DST=${3}
+
+# Check author file mapping
+if [ ${#} -eq 4 ]
+then
+    AUTHOR_FILE=${4}
+    if [ ! -f ${AUTHOR_FILE} ]
+    then
+        echo "Warning: ${AUTHOR_FILE} not exists."
+        exit 1
+    fi
+fi
 
 # Create svn folder
 if [ ! -d ${NAME}-svn ]
@@ -65,10 +77,15 @@ fi
 
 # Checkout svn
 echo -ne "\\033[39m-- checkout svn"
-git svn clone ${SRC} ${NAME}-svn
+if [ ${#} -eq 3 ]
+then
+    git svn clone ${SRC} ${NAME}-svn
+else 
+    git svn clone ${SRC} ${NAME}-svn --authors-file=${AUTHOR_FILE}
+fi
 if [ $? -ne 0 ]
 then
-    echo -e "\\033[31m KO: error with git svn"
+    echo -e "\\033[31m KO: error on git svn clone"
     exit 1
 else
     echo -e "\\033[32m OK"
@@ -76,6 +93,7 @@ fi
 
 # Prepare git
 echo -ne "\\033[39m-- clone svn to git"
+cd ${ROOT}
 git clone ${NAME}-svn ${NAME}-git
 if [ $? -ne 0 ]
 then
@@ -85,9 +103,21 @@ else
     echo -e "\\033[32m OK"
 fi
 
+# generate gitignore
+echo -ne "\\033[39m-- generate .gitignore"
+cd ${ROOT}/${NAME}-svn
+git svn show-ignore > ${ROOT}/${NAME}-git/.gitignore
+if [ $? -ne 0 ]
+then
+    echo -e "\\033[31m KO: error on git svn show-ignore"
+    exit 1
+else
+    echo -e "\\033[32m OK"
+fi
+
 # Set git remote
 echo -ne "\\033[39m-- git remote"
-cd ${NAME}-git
+cd ${ROOT}/${NAME}-git
 git remote set-url origin ${DST}
 if [ $? -ne 0 ]
 then
@@ -107,7 +137,9 @@ cat <<EOF
 #
 #       Now you need to check commit history and push the code.
 #
-#       git log && git push
+#       You need to check your .gitignore file.
+#
+#       cd ${NAME}-git && git log && git push
 #
 #
 ################################################################################
